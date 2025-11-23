@@ -1,3 +1,12 @@
+/************************************************************************************
+* NIU CSCI 463
+* Final Project Version 2: Disassembler 
+* Matt Warner - z2004200
+*
+* I certify that this is my own work, and where applicable an
+* extension of the starter code for the assignment/exam
+*
+************************************************************************************/
 #ifndef RV32I_H
 #define RV32I_H
 
@@ -23,6 +32,9 @@ private:
     static int32_t get_imm_s(uint32_t insn);
     static int32_t get_imm_j(uint32_t insn);
 
+    static uint16_t get_csr(uint32_t insn);
+    static uint32_t get_zimm(uint32_t insn);
+
     static std::string render_illegal_insn();
     static std::string render_utype(uint32_t insn, const std::string &mnemonic);
     static std::string render_lui(uint32_t insn);
@@ -31,14 +43,14 @@ private:
     static std::string render_jalr(uint32_t insn);
     static std::string render_btype(uint32_t addr, uint32_t insn, const std::string &mnemonic);
 
-    static std::string render_itype_load(uint32_t insn, const char *mnemonic);
-    static std::string render_stype(uint32_t insn, const char *mnemonic);
-    static std::string render_itype_alu(uint32_t insn, const char *mnemonic, int32_t imm_i);
-    static std::string render_rtype(uint32_t insn, const char *mnemonic);
-    static std::string render_ecall(uint32_t insn);
-    static std::string render_ebreak(uint32_t insn);
-    static std::string render_csrrx(uint32_t insn, const char *mnemonic);
-    static std::string render_csrrxi(uint32_t insn, const char *mnemonic);
+    static std::string render_itype_load(uint32_t insn, const std::string &mnemonic);
+    static std::string render_stype(uint32_t insn, const std::string &mnemonic);
+    static std::string render_itype_alu(uint32_t insn, const std::string &mnemonic, int32_t imm_i);
+    static std::string render_rtype(uint32_t insn, const std::string &mnemonic);
+    static std::string render_ecall();
+    static std::string render_ebreak();
+    static std::string render_csrrx(uint32_t insn, const std::string &mnemonic);
+    static std::string render_csrrxi(uint32_t insn, const std::string &mnemonic);
 
     static std::string render_reg(int r);
     static std::string render_base_disp(uint32_t base, int32_t disp);
@@ -80,6 +92,18 @@ private:
     static constexpr uint32_t funct3_sw             = 0b010;
 
     static constexpr uint32_t funct3_add            = 0b000;
+    static constexpr uint32_t funct3_slti           = 0b010;
+    static constexpr uint32_t funct3_sltiu          = 0b011;
+    static constexpr uint32_t funct3_xori           = 0b100;
+    static constexpr uint32_t funct3_ori            = 0b110;
+    static constexpr uint32_t funct3_andi            = 0b111;
+
+    static constexpr uint32_t funct3_slli            = 0b001;
+    static constexpr uint32_t funct3_srl            = 0b101;
+
+    static constexpr uint32_t funct7_srl            = 0b0000000;
+    static constexpr uint32_t funct7_sra            = 0b0100000;
+
     static constexpr uint32_t funct3_sll            = 0b001;
     static constexpr uint32_t funct3_slt            = 0b010;
     static constexpr uint32_t funct3_sltu           = 0b011;
@@ -89,16 +113,12 @@ private:
     static constexpr uint32_t funct3_or             = 0b110;
     static constexpr uint32_t funct3_and            = 0b111;
 
-    static constexpr uint32_t funct7_srl            = 0b0000000;
-    static constexpr uint32_t funct7_sra            = 0b0100000;
-
     static constexpr uint32_t funct7_add            = 0b0000000;
     static constexpr uint32_t funct7_sub            = 0b0100000;
 
     static constexpr uint32_t insn_ecall            = 0x00000073;
     static constexpr uint32_t insn_ebreak           = 0x00100073;
 
-    
     static constexpr uint32_t funct3_csrrw          = 0b001;
     static constexpr uint32_t funct3_csrrs          = 0b010;
     static constexpr uint32_t funct3_csrrc          = 0b011;

@@ -1,15 +1,13 @@
 /************************************************************************************
 * NIU CSCI 463
-* Final Project Version 1: Memory 
+* Final Project Version 2: Disassembler 
 * Matt Warner - z2004200
 *
 * I certify that this is my own work, and where applicable an
 * extension of the starter code for the assignment/exam
 *
-* Main function for testing functionality of the memory and hex classes.
 *
 ************************************************************************************/
-#include "hex.h"
 #include "rv32i_decode.h"
 #include "memory.h"
 #include <cstdint>
@@ -17,6 +15,9 @@
 #include <sstream>
 #include <unistd.h>
 
+/**
+ * Prints usage message for program.
+ */
 static void usage() {
   std::cerr << "Usage: rv32i [-m hex-mem-size] infile" << std::endl;
   std::cerr << "    -m specify memory size (default = 0x100)" << std::endl;
@@ -38,6 +39,9 @@ static void disassemble(const memory &mem){
 }
 
 
+/**
+ * Main function.
+ */
 int main(int argc, char **argv) {
   uint32_t memory_limit = 0x100; // default memory size is 0x100
 
@@ -63,6 +67,6 @@ int main(int argc, char **argv) {
     usage();
 
   disassemble(mem);
-  // mem.dump();
+  mem.dump();
   return 0;
 }

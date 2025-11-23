@@ -9,6 +9,7 @@
 * Provides utility for conversion to hexadecimal.
 *
 ************************************************************************************/
+
 #include "hex.h"
 
 /**
